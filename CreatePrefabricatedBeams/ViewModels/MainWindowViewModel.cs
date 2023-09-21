@@ -37,48 +37,24 @@ namespace CreatePrefabricatedBeams.ViewModels
 
         #endregion
 
-        #region Список комнат
-
-        private ObservableCollection<string> _rooms;
-
-        public ObservableCollection<string> Rooms
-        {
-            get => _rooms;
-            set => Set(ref _rooms, value);
-        }
-
-        #endregion
 
         #region Команды
-
-        #region Команда получение всех комнат
-
-        public ICommand GetRoomsCommand { get; }
-
-        private void OnGetRoomsCommandExecuted(object parameter)
-        {
-            Rooms = new ObservableCollection<string>(RevitModel.GetAllRooms());
-        }
-
-        private bool CanGetRoomsCommandExecute(object parameter)
-        {
-            return true;
-        }
-
-        #endregion
 
         #endregion
 
 
         #region Конструктор класса MainWindowViewModel
-        public MainWindowViewModel()
+        public MainWindowViewModel(RevitModelForfard revitModel)
         {
-            #region
+            RevitModel = revitModel;
 
-            GetRoomsCommand = new LambdaCommand(OnGetRoomsCommandExecuted, CanGetRoomsCommandExecute);
+            #region Команды
+
 
             #endregion
         }
+
+        public MainWindowViewModel() { }
         #endregion
     }
 }
