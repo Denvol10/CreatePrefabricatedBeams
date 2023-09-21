@@ -11,9 +11,9 @@ using Autodesk.Revit.UI.Selection;
 using Autodesk.Revit.DB.Architecture;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
-using RevitWPFTemplate.Infrastructure;
+using CreatePrefabricatedBeams.Infrastructure;
 
-namespace RevitWPFTemplate.ViewModels
+namespace CreatePrefabricatedBeams.ViewModels
 {
     internal class MainWindowViewModel : Base.ViewModel
     {
@@ -27,7 +27,7 @@ namespace RevitWPFTemplate.ViewModels
 
         #region Заголовок
 
-        private string _title = "Комнаты";
+        private string _title = "Сборные балки";
 
         public string Title
         {

@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace RevitWPFTemplate.ViewModels.Base
+namespace CreatePrefabricatedBeams.ViewModels.Base
 {
     internal abstract class ViewModel : INotifyPropertyChanged
     {
