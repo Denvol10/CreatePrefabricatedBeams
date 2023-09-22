@@ -43,6 +43,24 @@ namespace CreatePrefabricatedBeams.ViewModels
         }
         #endregion
 
+        #region Высота балки
+        private double _beamHeight = Properties.Settings.Default.BeamHeight;
+        public double BeamHeight
+        {
+            get => _beamHeight;
+            set => Set(ref _beamHeight, value);
+        }
+        #endregion
+
+        #region Ширина балки
+        private double _beamWidth = Properties.Settings.Default.BeamWidth;
+        public double BeamWidth
+        {
+            get => _beamWidth;
+            set => Set(ref _beamWidth, value);
+        }
+        #endregion
+
         #region Команды
 
         #region Получение пользователем балок пролетного строения
@@ -82,6 +100,8 @@ namespace CreatePrefabricatedBeams.ViewModels
         private void SaveSettings()
         {
             Properties.Settings.Default.BeamElementIds = BeamElementIds;
+            Properties.Settings.Default.BeamHeight = BeamHeight;
+            Properties.Settings.Default.BeamWidth = BeamWidth;
             Properties.Settings.Default.Save();
         }
 

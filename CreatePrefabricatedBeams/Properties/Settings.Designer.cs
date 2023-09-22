@@ -34,5 +34,29 @@ namespace CreatePrefabricatedBeams.Properties {
                 this["BeamElementIds"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public double BeamHeight {
+            get {
+                return ((double)(this["BeamHeight"]));
+            }
+            set {
+                this["BeamHeight"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public double BeamWidth {
+            get {
+                return ((double)(this["BeamWidth"]));
+            }
+            set {
+                this["BeamWidth"] = value;
+            }
+        }
     }
 }

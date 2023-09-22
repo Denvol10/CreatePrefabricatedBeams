@@ -85,7 +85,7 @@
                     <TextBlock Text="Высота балки, мм"
                                Style="{StaticResource TextAboveButton}"
                                Margin="15,0,0,0" />
-                    <TextBox Text="{Binding BlockHeight, UpdateSourceTrigger=PropertyChanged}"
+                    <TextBox Text="{Binding BeamHeight, UpdateSourceTrigger=PropertyChanged}"
                              Height="20"
                              Width="50"
                              HorizontalAlignment="Right"
@@ -97,7 +97,7 @@
                     <TextBlock Text="Ширина верха балки, мм"
                                Style="{StaticResource TextAboveButton}"
                                Margin="15,0,0,0" />
-                    <TextBox Text="{Binding BlockHeight, UpdateSourceTrigger=PropertyChanged}"
+                    <TextBox Text="{Binding BeamWidth, UpdateSourceTrigger=PropertyChanged}"
                              Height="20"
                              Width="50"
                              HorizontalAlignment="Right"
