@@ -10,7 +10,7 @@
         Background="#f0f0f0"
         WindowStartupLocation="CenterScreen"
         ResizeMode="NoResize"
-        Height="450"
+        Height="500"
         Width="350">
     <Window.DataContext>
         <vm:MainWindowViewModel />
@@ -110,6 +110,30 @@
         <GroupBox Header="Плита и покрытие проезжей части"
                   Style="{StaticResource BorderGroupStyle}">
             <StackPanel>
+                <UniformGrid Rows="2">
+                    <UniformGrid Columns="2">
+                        <UniformGrid Rows="2">
+                            <TextBlock Text="Линии на поверхности 1"
+                                       Style="{StaticResource TextAboveButton}"
+                                       VerticalAlignment="Bottom" />
+                            <Button Style="{StaticResource SelectButton}"
+                                    Command="{Binding GetRoadLines1}" />
+                        </UniformGrid>
+                        <TextBox Text="{Binding RoadLineElemIds1}"
+                                 Style="{StaticResource SelectedItemsBox}" />
+                    </UniformGrid>
+                    <UniformGrid Columns="2"
+                                 Margin="0,5">
+                        <UniformGrid Rows="2">
+                            <TextBlock Text="Линии на поверхности 2"
+                                       Style="{StaticResource TextAboveButton}" />
+                            <Button Style="{StaticResource SelectButton}"
+                                    Command="{Binding GetRoadLines2}" />
+                        </UniformGrid>
+                        <TextBox Text="{Binding RoadLineElemIds2}"
+                                 Style="{StaticResource SelectedItemsBox}" />
+                    </UniformGrid>
+                </UniformGrid>
                 <DockPanel Margin="0,3,0,0">
                     <TextBlock Text="Толщина покрытия, мм"
                                Style="{StaticResource TextAboveButton}"

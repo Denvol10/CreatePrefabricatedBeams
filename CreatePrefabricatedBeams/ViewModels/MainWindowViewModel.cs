@@ -61,6 +61,26 @@ namespace CreatePrefabricatedBeams.ViewModels
         }
         #endregion
 
+        #region Элементы линии на поверхности 1
+        private string _roadLineElemIds1;
+
+        public string RoadLineElemIds1
+        {
+            get => _roadLineElemIds1;
+            set => Set(ref _roadLineElemIds1, value);
+        }
+        #endregion
+
+        #region Элементы линии на поверхности 2
+        private string _roadLineElemIds2;
+
+        public string RoadLineElemIds2
+        {
+            get => _roadLineElemIds2;
+            set => Set(ref _roadLineElemIds2, value);
+        }
+        #endregion
+
         #region Толщина покрытия
         private double _roadSurfaceThikness = Properties.Settings.Default.RoadSurfaceThikness;
         public double RoadSurfaceThikness
@@ -98,6 +118,40 @@ namespace CreatePrefabricatedBeams.ViewModels
         }
         #endregion
 
+        #region Получение линии на поверхности дороги 1
+        public ICommand GetRoadLines1 { get; }
+
+        private void OnGetRoadLines1CommandExecuted(object parameter)
+        {
+            RevitCommand.mainView.Hide();
+            RevitModel.GetRoadLine1();
+            RoadLineElemIds1 = RevitModel.RoadLineElemIds1;
+            RevitCommand.mainView.ShowDialog();
+        }
+
+        private bool CanGetRoadLines1CommandExecute(object parameter)
+        {
+            return true;
+        }
+        #endregion
+
+        #region Получение линии на поверхности дороги 2
+        public ICommand GetRoadLines2 { get; }
+
+        private void OnGetRoadLines2CommandExecuted(object parameter)
+        {
+            RevitCommand.mainView.Hide();
+            RevitModel.GetRoadLine2();
+            RoadLineElemIds2 = RevitModel.RoadLineElemIds2;
+            RevitCommand.mainView.ShowDialog();
+        }
+
+        private bool CanGetRoadLines2CommandExecute(object parameter)
+        {
+            return true;
+        }
+        #endregion
+
         #region Закрыть окно
         public ICommand CloseWindowCommand { get; }
 
@@ -122,6 +176,8 @@ namespace CreatePrefabricatedBeams.ViewModels
             Properties.Settings.Default.BeamWidth = BeamWidth;
             Properties.Settings.Default.RoadSurfaceThikness = RoadSurfaceThikness;
             Properties.Settings.Default.SlabThikness = SlabThikness;
+            Properties.Settings.Default.RoadLineElemIds1 = RoadLineElemIds1;
+            Properties.Settings.Default.RoadLineElemIds2 = RoadLineElemIds2;
             Properties.Settings.Default.Save();
         }
 
@@ -146,9 +202,36 @@ namespace CreatePrefabricatedBeams.ViewModels
 
             #endregion
 
+            #region Инициализация значения элементам линии на поверхности 1
+            if (!(Properties.Settings.Default.RoadLineElemIds1 is null))
+            {
+                string line1ElementIdInSettings = Properties.Settings.Default.RoadLineElemIds1.ToString();
+                if (RevitModel.IsLinesExistInModel(line1ElementIdInSettings) && !string.IsNullOrEmpty(line1ElementIdInSettings))
+                {
+                    RoadLineElemIds1 = line1ElementIdInSettings;
+                    RevitModel.GetRoadLines1BySettings(line1ElementIdInSettings);
+                }
+            }
+            #endregion
+
+            #region Инициализация значения элементам линии на поверхности 2
+            if (!(Properties.Settings.Default.RoadLineElemIds2 is null))
+            {
+                string line2ElementIdInSettings = Properties.Settings.Default.RoadLineElemIds2.ToString();
+                if (RevitModel.IsLinesExistInModel(line2ElementIdInSettings) && !string.IsNullOrEmpty(line2ElementIdInSettings))
+                {
+                    RoadLineElemIds2 = line2ElementIdInSettings;
+                    RevitModel.GetRoadLines2BySettings(line2ElementIdInSettings);
+                }
+            }
+            #endregion
 
             #region Команды
             GetBeamElementsCommand = new LambdaCommand(OnGetBeamElementsCommandExecuted, CanGetBeamElementsCommandExecute);
+
+            GetRoadLines1 = new LambdaCommand(OnGetRoadLines1CommandExecuted, CanGetRoadLines1CommandExecute);
+
+            GetRoadLines2 = new LambdaCommand(OnGetRoadLines2CommandExecuted, CanGetRoadLines2CommandExecute);
 
             CloseWindowCommand = new LambdaCommand(OnCloseWindowCommandExecuted, CanCloseWindowCommandExecute);
             #endregion

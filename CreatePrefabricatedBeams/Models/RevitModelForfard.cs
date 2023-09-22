@@ -47,6 +47,63 @@ namespace CreatePrefabricatedBeams
         }
         #endregion
 
+        #region Линия на поверхности 1
+        public List<Line> RoadLines1 { get; set; }
+
+        private string _roadLineElemIds1;
+        public string RoadLineElemIds1
+        {
+            get => _roadLineElemIds1;
+            set => _roadLineElemIds1 = value;
+        }
+
+        public void GetRoadLine1()
+        {
+            RoadLines1 = RevitGeometryUtils.GetRoadLines(Uiapp, out _roadLineElemIds1);
+        }
+        #endregion
+
+        #region Получение линии на поверхности 1 из Settings
+        public void GetRoadLines1BySettings(string elemIdsInSettings)
+        {
+            var elemIds = RevitGeometryUtils.GetIdsByString(elemIdsInSettings);
+            RoadLines1 = RevitGeometryUtils.GetCurvesById(Doc, elemIds).OfType<Line>().ToList();
+        }
+        #endregion
+
+        #region Линия на поверхности 2
+        public List<Line> RoadLines2 { get; set; }
+
+        private string _roadLineElemIds2;
+        public string RoadLineElemIds2
+        {
+            get => _roadLineElemIds2;
+            set => _roadLineElemIds2 = value;
+        }
+
+        public void GetRoadLine2()
+        {
+            RoadLines2 = RevitGeometryUtils.GetRoadLines(Uiapp, out _roadLineElemIds2);
+        }
+        #endregion
+
+        #region Получение линии на поверхности 2 из Settings
+        public void GetRoadLines2BySettings(string elemIdsInSettings)
+        {
+            var elemIds = RevitGeometryUtils.GetIdsByString(elemIdsInSettings);
+            RoadLines2 = RevitGeometryUtils.GetCurvesById(Doc, elemIds).OfType<Line>().ToList();
+        }
+        #endregion
+
+        #region Проверка на то существуют линии оси и линии на поверхности в модели
+        public bool IsLinesExistInModel(string elemIdsInSettings)
+        {
+            var elemIds = RevitGeometryUtils.GetIdsByString(elemIdsInSettings);
+
+            return RevitGeometryUtils.IsElemsExistInModel(Doc, elemIds, typeof(DirectShape));
+        }
+        #endregion
+
         // Проверка на то существуют ли балки в модели
         public bool IsElementsExistInModel(string elemIdsInSettings)
         {
