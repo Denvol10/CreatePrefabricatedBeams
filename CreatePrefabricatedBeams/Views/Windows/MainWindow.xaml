@@ -107,6 +107,35 @@
                 </DockPanel>
             </StackPanel>
         </GroupBox>
+        <GroupBox Header="Плита и покрытие проезжей части"
+                  Style="{StaticResource BorderGroupStyle}">
+            <StackPanel>
+                <DockPanel Margin="0,3,0,0">
+                    <TextBlock Text="Толщина покрытия, мм"
+                               Style="{StaticResource TextAboveButton}"
+                               Margin="15,0,0,0" />
+                    <TextBox Text="{Binding RoadSurfaceThikness, UpdateSourceTrigger=PropertyChanged}"
+                             Height="20"
+                             Width="50"
+                             HorizontalAlignment="Right"
+                             TextAlignment="Center"
+                             VerticalContentAlignment="Center"
+                             Margin="0,0,107,0" />
+                </DockPanel>
+                <DockPanel Margin="0,4,0,0">
+                    <TextBlock Text="Толщина плиты, мм"
+                               Style="{StaticResource TextAboveButton}"
+                               Margin="15,0,0,0" />
+                    <TextBox Text="{Binding SlabThikness, UpdateSourceTrigger=PropertyChanged}"
+                             Height="20"
+                             Width="50"
+                             HorizontalAlignment="Right"
+                             TextAlignment="Center"
+                             VerticalContentAlignment="Center"
+                             Margin="0,0,107,0" />
+                </DockPanel>
+            </StackPanel>
+        </GroupBox>
         <GroupBox Header="Создание"
                   Style="{StaticResource BorderGroupStyle}">
             <UniformGrid Columns="2"

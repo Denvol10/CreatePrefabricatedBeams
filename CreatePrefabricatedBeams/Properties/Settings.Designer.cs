@@ -58,5 +58,29 @@ namespace CreatePrefabricatedBeams.Properties {
                 this["BeamWidth"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public double RoadSurfaceThikness {
+            get {
+                return ((double)(this["RoadSurfaceThikness"]));
+            }
+            set {
+                this["RoadSurfaceThikness"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public double SlabThikness {
+            get {
+                return ((double)(this["SlabThikness"]));
+            }
+            set {
+                this["SlabThikness"] = value;
+            }
+        }
     }
 }

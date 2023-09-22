@@ -61,6 +61,24 @@ namespace CreatePrefabricatedBeams.ViewModels
         }
         #endregion
 
+        #region Толщина покрытия
+        private double _roadSurfaceThikness = Properties.Settings.Default.RoadSurfaceThikness;
+        public double RoadSurfaceThikness
+        {
+            get => _roadSurfaceThikness;
+            set => Set(ref _roadSurfaceThikness, value);
+        }
+        #endregion
+
+        #region Толщина плиты
+        private double _slabThikness = Properties.Settings.Default.SlabThikness;
+        public double SlabThikness
+        {
+            get => _slabThikness;
+            set => Set(ref _slabThikness, value);
+        }
+        #endregion
+
         #region Команды
 
         #region Получение пользователем балок пролетного строения
@@ -102,6 +120,8 @@ namespace CreatePrefabricatedBeams.ViewModels
             Properties.Settings.Default.BeamElementIds = BeamElementIds;
             Properties.Settings.Default.BeamHeight = BeamHeight;
             Properties.Settings.Default.BeamWidth = BeamWidth;
+            Properties.Settings.Default.RoadSurfaceThikness = RoadSurfaceThikness;
+            Properties.Settings.Default.SlabThikness = SlabThikness;
             Properties.Settings.Default.Save();
         }
 
