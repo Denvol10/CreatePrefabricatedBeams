@@ -62,17 +62,55 @@ namespace CreatePrefabricatedBeams.ViewModels
         }
         #endregion
 
+        #region Закрыть окно
+        public ICommand CloseWindowCommand { get; }
+
+        private void OnCloseWindowCommandExecuted(object parameter)
+        {
+            SaveSettings();
+            RevitCommand.mainView.Close();
+        }
+
+        private bool CanCloseWindowCommandExecute(object parameter)
+        {
+            return true;
+        }
         #endregion
 
+        #endregion
+
+        private void SaveSettings()
+        {
+            Properties.Settings.Default.BeamElementIds = BeamElementIds;
+            Properties.Settings.Default.Save();
+        }
 
         #region Конструктор класса MainWindowViewModel
         public MainWindowViewModel(RevitModelForfard revitModel)
         {
             RevitModel = revitModel;
 
+            #region Инициализация свойств из Settings
+
+            #region Инициализация балок
+            if (!(Properties.Settings.Default.BeamElementIds is null))
+            {
+                string beamElementIdsInSettings = Properties.Settings.Default.BeamElementIds;
+                if (RevitModel.IsElementsExistInModel(beamElementIdsInSettings) && !string.IsNullOrEmpty(beamElementIdsInSettings))
+                {
+                    BeamElementIds = beamElementIdsInSettings;
+                    RevitModel.GetBeamsBySettings(beamElementIdsInSettings);
+                }
+            }
+            #endregion
+
+            #endregion
+
+
             #region Команды
             GetBeamElementsCommand = new LambdaCommand(OnGetBeamElementsCommandExecuted, CanGetBeamElementsCommandExecute);
 
+            CloseWindowCommand = new LambdaCommand(OnCloseWindowCommandExecuted, CanCloseWindowCommandExecute);
             #endregion
         }
 

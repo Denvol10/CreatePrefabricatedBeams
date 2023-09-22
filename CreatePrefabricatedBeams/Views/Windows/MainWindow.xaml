@@ -107,5 +107,17 @@
                 </DockPanel>
             </StackPanel>
         </GroupBox>
+        <GroupBox Header="Создание"
+                  Style="{StaticResource BorderGroupStyle}">
+            <UniformGrid Columns="2"
+                         Margin="0,12,0,5">
+                <Button Content="Создать"
+                        Style="{StaticResource SelectButton}"
+                        Command="{Binding CreateCrossElementsCommand}" />
+                <Button Content="Отмена"
+                        Style="{StaticResource SelectButton}"
+                        Command="{Binding CloseWindowCommand}" />
+            </UniformGrid>
+        </GroupBox>
     </StackPanel>
 </Window>

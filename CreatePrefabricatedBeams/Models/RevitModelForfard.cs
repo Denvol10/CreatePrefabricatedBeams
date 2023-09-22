@@ -12,6 +12,7 @@ using Autodesk.Revit.DB.Architecture;
 using System.Collections.ObjectModel;
 using CreatePrefabricatedBeams.Models;
 using CreatePrefabricatedBeams.Models.Filters;
+using System.Windows.Documents.DocumentStructures;
 
 namespace CreatePrefabricatedBeams
 {
@@ -45,5 +46,21 @@ namespace CreatePrefabricatedBeams
             BeamElements = RevitGeometryUtils.GetElementsBySelection(Uiapp, new StructuralFramingCategoryFilter(), out _beamElementIds);
         }
         #endregion
+
+        // Проверка на то существуют ли балки в модели
+        public bool IsElementsExistInModel(string elemIdsInSettings)
+        {
+            var elemIds = RevitGeometryUtils.GetIdsByString(elemIdsInSettings);
+
+            return RevitGeometryUtils.IsElemsExistInModel(Doc, elemIds, typeof(FamilyInstance));
+        }
+
+        // Получение блоков из Settings
+        public void GetBeamsBySettings(string elemIdsInSettings)
+        {
+            var elemIds = RevitGeometryUtils.GetIdsByString(elemIdsInSettings);
+            BeamElements = RevitGeometryUtils.GetElementsById(Doc, elemIds);
+        }
+
     }
 }
