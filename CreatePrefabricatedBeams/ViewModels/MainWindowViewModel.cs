@@ -178,6 +178,21 @@ namespace CreatePrefabricatedBeams.ViewModels
         }
         #endregion
 
+        #region Переместить балки
+        public ICommand MoveBeamsCommand { get; }
+
+        private void OnMoveBeamsCommandExecuted(object parameter)
+        {
+            RevitModel.MoveBeams(BeamHeight, BeamWidth);
+            SaveSettings();
+        }
+
+        private bool CanMoveBeamsCommandExecute(object parameter)
+        {
+            return true;
+        }
+        #endregion
+
         #region Закрыть окно
         public ICommand CloseWindowCommand { get; }
 
@@ -227,8 +242,6 @@ namespace CreatePrefabricatedBeams.ViewModels
             }
             #endregion
 
-
-
             #region Инициализация значения элементам линии на поверхности 1
             if (!(Properties.Settings.Default.RoadLineElemIds1 is null))
             {
@@ -275,6 +288,8 @@ namespace CreatePrefabricatedBeams.ViewModels
             GetRoadLines2 = new LambdaCommand(OnGetRoadLines2CommandExecuted, CanGetRoadLines2CommandExecute);
 
             GetDirectionLineCommand = new LambdaCommand(OnGetDirectionLineCommandExecuted, CanGetDirectionLineCommandExecute);
+
+            MoveBeamsCommand = new LambdaCommand(OnMoveBeamsCommandExecuted, CanMoveBeamsCommandExecute);
 
             CloseWindowCommand = new LambdaCommand(OnCloseWindowCommandExecuted, CanCloseWindowCommandExecute);
             #endregion

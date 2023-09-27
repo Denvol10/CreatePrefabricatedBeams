@@ -177,7 +177,7 @@
                          Margin="0,12,0,5">
                 <Button Content="Создать"
                         Style="{StaticResource SelectButton}"
-                        Command="{Binding CreateCrossElementsCommand}" />
+                        Command="{Binding MoveBeamsCommand}" />
                 <Button Content="Отмена"
                         Style="{StaticResource SelectButton}"
                         Command="{Binding CloseWindowCommand}" />

@@ -151,5 +151,27 @@ namespace CreatePrefabricatedBeams
             BeamElements = RevitGeometryUtils.GetElementsById(Doc, elemIds);
         }
 
+
+        // Перемещение балок
+        public void MoveBeams(double beamHeight, double beamWidth)
+        {
+
+
+            using(Transaction trans = new Transaction(Doc, "Move Beams"))
+            {
+                trans.Start();
+                var prefabricatedBeams = BeamElements.Select(b => new PrefabricatedBeam(b as FamilyInstance, beamHeight, beamWidth));
+                var level = prefabricatedBeams.First().BeamInstance.Host;
+                var sketchPlane = SketchPlane.Create(Doc, level.Id);
+
+                var locationCurves = prefabricatedBeams.Select(pb => pb.GetLocationLine(DirectionLine));
+                foreach (Line line in locationCurves)
+                {
+                    Doc.Create.NewModelCurve(line, sketchPlane);
+                }
+
+                trans.Commit();
+            }
+        }
     }
 }
