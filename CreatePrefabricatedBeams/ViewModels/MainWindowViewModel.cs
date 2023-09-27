@@ -183,8 +183,9 @@ namespace CreatePrefabricatedBeams.ViewModels
 
         private void OnMoveBeamsCommandExecuted(object parameter)
         {
-            RevitModel.MoveBeams(BeamHeight, BeamWidth);
+            RevitModel.MoveBeams(BeamHeight, BeamWidth, RoadSurfaceThikness, SlabThikness);
             SaveSettings();
+            RevitCommand.mainView.Close();
         }
 
         private bool CanMoveBeamsCommandExecute(object parameter)

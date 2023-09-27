@@ -152,22 +152,25 @@ namespace CreatePrefabricatedBeams
         }
 
 
+
         // Перемещение балок
-        public void MoveBeams(double beamHeight, double beamWidth)
+        public void MoveBeams(double beamHeight, double beamWidth, double roadSurfaceThikness, double slabThikness)
         {
+            var prefabricatedBeams = BeamElements.Select(b => new PrefabricatedBeam(b as FamilyInstance, beamHeight, beamWidth));
 
-
-            using(Transaction trans = new Transaction(Doc, "Move Beams"))
+            using (Transaction trans = new Transaction(Doc, "Move Beams"))
             {
                 trans.Start();
-                var prefabricatedBeams = BeamElements.Select(b => new PrefabricatedBeam(b as FamilyInstance, beamHeight, beamWidth));
-                var level = prefabricatedBeams.First().BeamInstance.Host;
-                var sketchPlane = SketchPlane.Create(Doc, level.Id);
-
-                var locationCurves = prefabricatedBeams.Select(pb => pb.GetLocationLine(DirectionLine));
-                foreach (Line line in locationCurves)
+                foreach(var prefabBeam in prefabricatedBeams)
                 {
-                    Doc.Create.NewModelCurve(line, sketchPlane);
+                    LocationCurve oldLocation;
+                    var newLocationLine = prefabBeam.GetNewLocation(DirectionLine,
+                                                                    RoadLines1,
+                                                                    RoadLines2,
+                                                                    roadSurfaceThikness,
+                                                                    slabThikness,
+                                                                    out oldLocation);
+                    oldLocation.Curve = newLocationLine;
                 }
 
                 trans.Commit();
