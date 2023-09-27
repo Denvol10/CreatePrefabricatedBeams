@@ -114,6 +114,18 @@ namespace CreatePrefabricatedBeams.Models
             return directionLine;
         }
 
+        // Получение линии по Id
+        public static Curve GetDirectionLineById(Document doc, string elemIdInSettings)
+        {
+            var elemId = GetIdsByString(elemIdInSettings).First();
+            ElementId modelLineId = new ElementId(elemId);
+            Element modelLine = doc.GetElement(modelLineId);
+            Options options = new Options();
+            Curve line = modelLine.get_Geometry(options).First() as Curve;
+
+            return line;
+        }
+
         // Метод получения строки с ElementId
         private static string ElementIdToString(IEnumerable<Element> elements)
         {

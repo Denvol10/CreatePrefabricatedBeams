@@ -204,6 +204,7 @@ namespace CreatePrefabricatedBeams.ViewModels
             Properties.Settings.Default.SlabThikness = SlabThikness;
             Properties.Settings.Default.RoadLineElemIds1 = RoadLineElemIds1;
             Properties.Settings.Default.RoadLineElemIds2 = RoadLineElemIds2;
+            Properties.Settings.Default.DirectionLineId = DirectionLineId;
             Properties.Settings.Default.Save();
         }
 
@@ -226,7 +227,7 @@ namespace CreatePrefabricatedBeams.ViewModels
             }
             #endregion
 
-            #endregion
+
 
             #region Инициализация значения элементам линии на поверхности 1
             if (!(Properties.Settings.Default.RoadLineElemIds1 is null))
@@ -250,6 +251,20 @@ namespace CreatePrefabricatedBeams.ViewModels
                     RevitModel.GetRoadLines2BySettings(line2ElementIdInSettings);
                 }
             }
+            #endregion
+
+            #region Инициализация линии на стороне смещения
+            if (!(Properties.Settings.Default.DirectionLineId is null))
+            {
+                string directLineIdInSettings = Properties.Settings.Default.DirectionLineId;
+                if (RevitModel.IsDirectionLineExistInModel(directLineIdInSettings) && !string.IsNullOrEmpty(directLineIdInSettings))
+                {
+                    DirectionLineId = directLineIdInSettings;
+                    RevitModel.GetDirectionLineBySettings(directLineIdInSettings);
+                }
+            }
+            #endregion
+
             #endregion
 
             #region Команды

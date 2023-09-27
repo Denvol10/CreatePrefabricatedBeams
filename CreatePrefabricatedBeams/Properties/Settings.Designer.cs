@@ -106,5 +106,17 @@ namespace CreatePrefabricatedBeams.Properties {
                 this["RoadLineElemIds2"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string DirectionLineId {
+            get {
+                return ((string)(this["DirectionLineId"]));
+            }
+            set {
+                this["DirectionLineId"] = value;
+            }
+        }
     }
 }

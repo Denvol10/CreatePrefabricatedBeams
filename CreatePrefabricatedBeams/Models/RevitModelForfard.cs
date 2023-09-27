@@ -111,12 +111,28 @@ namespace CreatePrefabricatedBeams
         }
         #endregion
 
+        #region Получение границы 1 из Settings
+        public void GetDirectionLineBySettings(string elemIdInSettings)
+        {
+            DirectionLine = RevitGeometryUtils.GetDirectionLineById(Doc, elemIdInSettings);
+        }
+        #endregion
+
         #region Проверка на то существуют линии оси и линии на поверхности в модели
         public bool IsLinesExistInModel(string elemIdsInSettings)
         {
             var elemIds = RevitGeometryUtils.GetIdsByString(elemIdsInSettings);
 
             return RevitGeometryUtils.IsElemsExistInModel(Doc, elemIds, typeof(DirectShape));
+        }
+        #endregion
+
+        #region Проверка на то существует линия на стороне смещения в модели
+        public bool IsDirectionLineExistInModel(string elemIdsInSettings)
+        {
+            var elemIds = RevitGeometryUtils.GetIdsByString(elemIdsInSettings);
+
+            return RevitGeometryUtils.IsElemsExistInModel(Doc, elemIds, typeof(ModelLine));
         }
         #endregion
 
