@@ -81,6 +81,15 @@ namespace CreatePrefabricatedBeams.ViewModels
         }
         #endregion
 
+        #region Линия на стороне смещения
+        private string _directionLineId;
+        public string DirectionLineId
+        {
+            get => _directionLineId;
+            set => Set(ref _directionLineId, value);
+        }
+        #endregion
+
         #region Толщина покрытия
         private double _roadSurfaceThikness = Properties.Settings.Default.RoadSurfaceThikness;
         public double RoadSurfaceThikness
@@ -147,6 +156,23 @@ namespace CreatePrefabricatedBeams.ViewModels
         }
 
         private bool CanGetRoadLines2CommandExecute(object parameter)
+        {
+            return true;
+        }
+        #endregion
+
+        #region Получение линии на стороне смещения
+        public ICommand GetDirectionLineCommand { get; }
+
+        private void OnGetDirectionLineCommandExecuted(object parameter)
+        {
+            RevitCommand.mainView.Hide();
+            RevitModel.GetDirectionLine();
+            DirectionLineId = RevitModel.DirectionLineId;
+            RevitCommand.mainView.ShowDialog();
+        }
+
+        private bool CanGetDirectionLineCommandExecute(object parameter)
         {
             return true;
         }
@@ -232,6 +258,8 @@ namespace CreatePrefabricatedBeams.ViewModels
             GetRoadLines1 = new LambdaCommand(OnGetRoadLines1CommandExecuted, CanGetRoadLines1CommandExecute);
 
             GetRoadLines2 = new LambdaCommand(OnGetRoadLines2CommandExecuted, CanGetRoadLines2CommandExecute);
+
+            GetDirectionLineCommand = new LambdaCommand(OnGetDirectionLineCommandExecuted, CanGetDirectionLineCommandExecute);
 
             CloseWindowCommand = new LambdaCommand(OnCloseWindowCommandExecuted, CanCloseWindowCommandExecute);
             #endregion

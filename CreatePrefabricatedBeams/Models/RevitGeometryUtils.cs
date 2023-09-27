@@ -101,6 +101,19 @@ namespace CreatePrefabricatedBeams.Models
             return lines;
         }
 
+        // Получение линии на стороне смещения
+        public static Curve GetDirectionLine(UIApplication uiapp, out string elementIds)
+        {
+            Selection sel = uiapp.ActiveUIDocument.Selection;
+            var directionCurvePicked = sel.PickObject(ObjectType.Element, "Выберете линию на стороне смещения");
+            Options options = new Options();
+            Element curveElement = uiapp.ActiveUIDocument.Document.GetElement(directionCurvePicked);
+            elementIds = "Id" + curveElement.Id.IntegerValue;
+            var directionLine = curveElement.get_Geometry(options).First() as Curve;
+
+            return directionLine;
+        }
+
         // Метод получения строки с ElementId
         private static string ElementIdToString(IEnumerable<Element> elements)
         {

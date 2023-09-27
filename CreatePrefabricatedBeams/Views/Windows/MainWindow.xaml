@@ -110,7 +110,7 @@
         <GroupBox Header="Плита и покрытие проезжей части"
                   Style="{StaticResource BorderGroupStyle}">
             <StackPanel>
-                <UniformGrid Rows="2">
+                <UniformGrid Rows="3">
                     <UniformGrid Columns="2">
                         <UniformGrid Rows="2">
                             <TextBlock Text="Линии на поверхности 1"
@@ -123,7 +123,7 @@
                                  Style="{StaticResource SelectedItemsBox}" />
                     </UniformGrid>
                     <UniformGrid Columns="2"
-                                 Margin="0,5">
+                                 Margin="0,5,0,0">
                         <UniformGrid Rows="2">
                             <TextBlock Text="Линии на поверхности 2"
                                        Style="{StaticResource TextAboveButton}" />
@@ -131,6 +131,17 @@
                                     Command="{Binding GetRoadLines2}" />
                         </UniformGrid>
                         <TextBox Text="{Binding RoadLineElemIds2}"
+                                 Style="{StaticResource SelectedItemsBox}" />
+                    </UniformGrid>
+                    <UniformGrid Columns="2">
+                        <UniformGrid Rows="2">
+                            <TextBlock Text="Линия на стороне смещения"
+                                       Style="{StaticResource TextAboveButton}"
+                                       VerticalAlignment="Bottom" />
+                            <Button Style="{StaticResource SelectButton}"
+                                    Command="{Binding GetDirectionLineCommand}" />
+                        </UniformGrid>
+                        <TextBox Text="{Binding DirectionLineId}"
                                  Style="{StaticResource SelectedItemsBox}" />
                     </UniformGrid>
                 </UniformGrid>

@@ -59,6 +59,7 @@
     <Compile Include="Infrastructure\LambdaCommand.cs" />
     <Compile Include="Infrastructure\RevitCommand.cs" />
     <Compile Include="Models\Filters\StructuralFramingCategoryFilter.cs" />
+    <Compile Include="Models\PrefabricatedBeam.cs" />
     <Compile Include="Models\RevitGeometryUtils.cs" />
     <Compile Include="Models\RevitModelForfard.cs" />
     <Compile Include="Properties\Settings.Designer.cs">

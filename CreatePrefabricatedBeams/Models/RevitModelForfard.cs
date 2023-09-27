@@ -95,6 +95,22 @@ namespace CreatePrefabricatedBeams
         }
         #endregion
 
+        #region Линия на стороне смещения
+        public Curve DirectionLine { get; set; }
+
+        private string _directionLineId;
+        public string DirectionLineId
+        {
+            get => _directionLineId;
+            set => _directionLineId = value;
+        }
+
+        public void GetDirectionLine()
+        {
+            DirectionLine = RevitGeometryUtils.GetDirectionLine(Uiapp, out _directionLineId);
+        }
+        #endregion
+
         #region Проверка на то существуют линии оси и линии на поверхности в модели
         public bool IsLinesExistInModel(string elemIdsInSettings)
         {
