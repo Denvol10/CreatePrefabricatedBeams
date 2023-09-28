@@ -151,8 +151,6 @@ namespace CreatePrefabricatedBeams
             BeamElements = RevitGeometryUtils.GetElementsById(Doc, elemIds);
         }
 
-
-
         // Перемещение балок
         public void MoveBeams(double beamHeight, double beamWidth, double roadSurfaceThikness, double slabThikness)
         {
@@ -171,6 +169,18 @@ namespace CreatePrefabricatedBeams
                                                                     slabThikness,
                                                                     out oldLocation);
                     oldLocation.Curve = newLocationLine;
+
+                    Parameter zAlignment = prefabBeam.BeamInstance.get_Parameter(BuiltInParameter.Z_JUSTIFICATION);
+                    if (zAlignment.AsInteger() == 0)
+                    {
+                        zAlignment.Set(3);
+                    }
+
+                    double actualLength = prefabBeam.BeamInstance.get_Parameter(BuiltInParameter.STRUCTURAL_FRAME_CUT_LENGTH).AsDouble();
+                    double length = prefabBeam.BeamInstance.get_Parameter(BuiltInParameter.INSTANCE_LENGTH_PARAM).AsDouble();
+                    double differenceLength = actualLength - length;
+                    Parameter startExtensionParam = prefabBeam.BeamInstance.get_Parameter(BuiltInParameter.START_EXTENSION);
+                    startExtensionParam.Set(differenceLength);
                 }
 
                 trans.Commit();
