@@ -84,7 +84,7 @@ namespace CreatePrefabricatedBeams.Models
 
             XYZ horisontalOffset = offsetDirection.Negate();
             XYZ verticalOffset = UnitUtils.ConvertToInternalUnits((roadSurfaceThikness
-                + slabThikness), UnitTypeId.Millimeters) * XYZ.BasisZ.Negate();
+                + slabThikness + Height), UnitTypeId.Millimeters) * XYZ.BasisZ.Negate();
 
             Line newLocationLine = Line.CreateBound((startPointOnRoad + verticalOffset + horisontalOffset),
                                                     (endPointOnRoad + verticalOffset + horisontalOffset));
