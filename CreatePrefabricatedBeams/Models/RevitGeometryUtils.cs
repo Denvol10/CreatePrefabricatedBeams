@@ -154,6 +154,8 @@ namespace CreatePrefabricatedBeams.Models
         // Получение линии из списка, которая пересекается с плоскостью
         public static Line GetIntersectCurve(IEnumerable<Line> lines, Plane plane)
         {
+            var intersectionLines = new List<Line>();
+
             XYZ originPlane = plane.Origin;
             XYZ directionLine = plane.XVec;
 
@@ -173,8 +175,17 @@ namespace CreatePrefabricatedBeams.Models
                 var compResult = lineByPlane.Intersect(baseLine, out result);
                 if (compResult == SetComparisonResult.Overlap)
                 {
-                    return line;
+                    intersectionLines.Add(line);
                 }
+            }
+
+            if (intersectionLines.Count == 1)
+            {
+                return intersectionLines.First();
+            }
+            else if (intersectionLines.Count > 1)
+            {
+                return intersectionLines.OrderBy(l => l.Evaluate(0.5, true).DistanceTo(plane.Origin)).First();
             }
 
             return null;
